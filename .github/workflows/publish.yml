@@ -13,6 +13,21 @@ jobs:
           node-version: '10'
           registry-url: 'https://npm.pkg.github.com'
           scope: '@kenju'
+      - name: validate versions
+        id: validate
+        run: |
+          upstream=$(npm view @kenju/gdrive-permissions-codify version)
+          local=$(node -e 'console.log(require("./package.json").version)')
+          echo "upstream version = $upstream"
+          echo "local version    = $local"
+          if [ "$upstream" == "$local" ]; then
+            echo "::set-output name=skip::true"
+          else
+            echo "::set-output name=skip::false"
+          fi
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: npm publish
+        if: steps.validate.outputs.skip == 'false'
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

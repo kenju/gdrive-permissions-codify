@@ -1,30 +1,40 @@
 # gdrive-permissions-codify
 
+Codify permissions list for Google Drive files.
+
 ## Usage
 
+### Prerequisite
+
+- Create a service account
+- Invite the service account to the files you want to codify
+- Download the service account's credentials (e.g. `credentials.json`)
+    - https://cloud.google.com/docs/authentication/production
+
+### Example
+
+Create the `permissions.yml` file:
+
+```yml
+version: 1
+permissions:
+  - fileId: 'foobar'
+    resource:
+      - type: 'user'
+        role: 'owner'
+        emailAddress: 'foo@example.com'
+      - type: 'user'
+        role: 'writer'
+        emailAddress: 'gdrivepermissionscodify@foo.iam.gserviceaccount.com'
 ```
-npm install --save gdrive-permissions-codify
-```
+
+Run `gdrive-permissions-codify`:
 
 ```
-$(npm bin)/gdrive-permissions-codify --help
+gdrive-permissions-codify --permission-file ./permissions.yml --credential-file ./credentials.json
 ```
 
-## Publish
-
-⚠️ Basically, please follow the automated publish workflow. Manual publish workflow is only for edge cases (e.g. you want to force publish while takinc actions at incidents, etc.).
-
-### Automation
-
-When you bump up the `version` in `package.json` and push to `master` branch, the package will be updated to the private GitHub Packages automatically. You cannot publish to same versions.
-
-### Manually
-
-Then, update `version` in `package.json` and run:
-
-```
-npm publish
-```
+See `gdrive-permissions-codify --help` for the CLI options.
 
 ## Documentation
 
@@ -78,3 +88,9 @@ permissions:
 -       role: 'owner'
 -       emailAddress: 'foo@example.com'
 ```
+
+## Development
+
+### Publish
+
+When you bump up the `version` in `package.json` and push to `master` branch, the package will be updated to the private GitHub Packages automatically. You cannot publish to same versions.

@@ -205,13 +205,13 @@ async function apply() {
     }))
     console.log('updates=', updatesResult)
 
-    const createsResult = await Promise.all(creates.map(async ({ fileId, emailAddress, role, type}) => {
+    const createsResult = await Promise.all(creates.map(async ({ fileId, emailAddress, role, type }) => {
         console.log(`[${fileId}] creating a permission for ${role}:${type}:${emailAddress}`)
         return await createPermission(drive, fileId, emailAddress, role, type)
     }))
     console.log('creates=', createsResult)
 
-    const deletesResult = await Promise.all(deletes.map(async ({ fileId, emailAddress, permissionId, role, type}) => {
+    const deletesResult = await Promise.all(deletes.map(async ({ fileId, emailAddress, permissionId, role, type }) => {
         console.log(`[${fileId}] deleting the permission for ${role}:${type}:${emailAddress} (id=${permissionId})`)
         return await deletePermission(drive, fileId, permissionId)
     }))
@@ -221,7 +221,7 @@ async function apply() {
 function setupCommand() {
     program
         .option('-d, --debug', 'output extra debugging', false)
-        .option('-c, --credential-file <file>', 'path to the credential file', './credentials.json')
+        .option('-c, --credential-file <file>', 'path to the Google API credential file', './credentials.json')
         .option('-f, --permission-file <file>', 'path to the permission file', './permissions.yml')
 
     program.parse(process.argv)
@@ -231,12 +231,12 @@ function setupCommand() {
     }
 }
 
-(async function() {
+(async function () {
     setupCommand()
 
     try {
         await apply()
-    } catch(err) {
+    } catch (err) {
         console.error(err)
     }
 })()

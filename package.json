@@ -5,7 +5,7 @@
   "main": "index.js",
   "author": "kenju",
   "dependencies": {
-    "commander": "^6.1.0",
+    "commander": "^6.2.0",
     "googleapis": "^60.0.1",
     "js-yaml": "^3.14.0"
   },

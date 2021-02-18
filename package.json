@@ -6,7 +6,7 @@
   "author": "kenju",
   "dependencies": {
     "commander": "^7.1.0",
-    "googleapis": "^67.0.0",
+    "googleapis": "^67.1.0",
     "js-yaml": "^4.0.0"
   },
   "bin": {
